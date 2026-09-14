@@ -1,0 +1,39 @@
+# Реальные данные мониторинга — содержат имена хостов, IP и конфигурацию узлов; в репозиторий не попадают
+nmon_examples/
+*.nmon
+*.nmon.gz
+*.nmon.txt
+*.nmon.csv
+
+# Результаты запусков скрипта (--output), выгрузки
+*.out
+out/
+reports/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# IDE и редакторы
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ОС
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Локальные заметки и черновики
+*.local.md
+scratch/
+tmp/

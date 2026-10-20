@@ -9,8 +9,8 @@ Apache Ignite 2.x. Ориентирован на использование ИИ
 
 Требования: Python >= 3.12, только стандартная библиотека.
 
-Запуск:  python nmon_analyzer.py <команда> [опции] <файлы|каталоги|маски>
-Справка: python nmon_analyzer.py --help ; python nmon_analyzer.py <команда> --help
+Запуск:  python3 nmon_analyzer.py <команда> [опции] <файлы|каталоги|маски>
+Справка: python3 nmon_analyzer.py --help ; python3 nmon_analyzer.py <команда> --help
 Полное описание команд и интерпретации — в NMON_ANALYZER.md.
 """
 from __future__ import annotations
@@ -5226,11 +5226,11 @@ def build_parser():
                     "Команда `questions` показывает, какой командой отвечать на какой вопрос.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="Примеры:\n"
-               "  python nmon_analyzer.py report node1.nmon\n"
-               "  python nmon_analyzer.py cluster /var/log/nmon/ --format md\n"
-               "  python nmon_analyzer.py at --time 03:52 --host node07 *.nmon\n"
-               "  python nmon_analyzer.py timeline --metrics cpu.busy disk.write --step 5m --agg max node1.nmon\n"
-               "  python nmon_analyzer.py disk --dev nvme0n1 --from 03:30 --to 04:10 node1.nmon --format json\n")
+               "  python3 nmon_analyzer.py report node1.nmon\n"
+               "  python3 nmon_analyzer.py cluster /var/log/nmon/ --format md\n"
+               "  python3 nmon_analyzer.py at --time 03:52 --host node07 *.nmon\n"
+               "  python3 nmon_analyzer.py timeline --metrics cpu.busy disk.write --step 5m --agg max node1.nmon\n"
+               "  python3 nmon_analyzer.py disk --dev nvme0n1 --from 03:30 --to 04:10 node1.nmon --format json\n")
     p.add_argument("--version", action="version", version=f"nmon_analyzer {VERSION}")
     sub = p.add_subparsers(dest="command", metavar="команда")
     sub.required = True

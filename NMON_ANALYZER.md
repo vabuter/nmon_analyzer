@@ -27,43 +27,41 @@
 
 ```bash
 # 0. Какие команды есть и какой вопрос какой командой решается
-python nmon_analyzer.py questions
+python3 nmon_analyzer.py questions
 
 # 1. Что за файлы: хосты, периоды, интервал, есть ли TOP/UARG, разрывы
-python nmon_analyzer.py info /path/to/nmon/            # каталог со всеми файлами кластера
+python3 nmon_analyzer.py info /path/to/nmon/            # каталог со всеми файлами кластера
 
 # 2. Можно ли доверять данным
-python nmon_analyzer.py check node01.nmon
+python3 nmon_analyzer.py check node01.nmon
 
 # 3. Общая картина по одному узлу: ключевые показатели + замечания (CRIT/WARN/INFO) + таймлайн
-python nmon_analyzer.py report node01.nmon
+python3 nmon_analyzer.py report node01.nmon
 
 # 4. Кластер целиком: покрытие, различия конфигурации, метрики по хостам, выбросы, синхронные события
-python nmon_analyzer.py cluster /path/to/nmon/ --format md
+python3 nmon_analyzer.py cluster /path/to/nmon/ --format md
 
 # 5. Углубление в конкретную подсистему
-python nmon_analyzer.py disk node01.nmon
-python nmon_analyzer.py java node01.nmon
-python nmon_analyzer.py mem node01.nmon
+python3 nmon_analyzer.py disk node01.nmon
+python3 nmon_analyzer.py java node01.nmon
+python3 nmon_analyzer.py mem node01.nmon
 
 # 6. Что происходило в момент времени из лога Ignite (все метрики, процессы, диски, сеть)
-python nmon_analyzer.py at --time "2026-03-14 03:52" node01.nmon
+python3 nmon_analyzer.py at --time "2026-03-14 03:52" node01.nmon
 
 # 7. Ряд метрик вокруг инцидента, с укрупнением до 5 минут (max в корзине)
-python nmon_analyzer.py timeline --around 03:52 --window 30m --step 5m --agg max node01.nmon
+python3 nmon_analyzer.py timeline --around 03:52 --window 30m --step 5m --agg max node01.nmon
 
 # 8. Что изменилось между «до» и «во время»
-python nmon_analyzer.py compare --a 02:00-02:30 --b 03:30-04:00 node01.nmon
+python3 nmon_analyzer.py compare --a 02:00-02:30 --b 03:30-04:00 node01.nmon
 
 # 9. Машиночитаемый вывод
-python nmon_analyzer.py health node01.nmon --format json
+python3 nmon_analyzer.py health node01.nmon --format json
 ```
 
 Порядок аргументов: пути к файлам ставьте **до** списковых опций `--metrics`/`--columns` (или отделяйте `--`),
 иначе argparse примет путь за имя метрики. Скрипт возвращает в список путей завершающие элементы `--metrics`,
 если они существуют как файлы, но надёжнее сразу писать `timeline node01.nmon --metrics cpu.busy disk.write`.
-В Git Bash на Windows экспортируйте `MSYS_NO_PATHCONV=1`, иначе аргументы вида `/opt/…` (регулярные выражения
-для `--mount`, `--dev`) будут переписаны в пути Windows.
 
 Рекомендуемый порядок при разборе инцидента: `info` → `check` → `cluster` (если файлов много) →
 `report` по подозрительным хостам → `health`/`events`/`at`/`timeline`/`compare` → `disk`/`mem`/`vm`/`net`/`java`
@@ -78,7 +76,7 @@ python nmon_analyzer.py health node01.nmon --format json
 
 - Аргументы `paths`: файлы `*.nmon`, каталоги (обходятся рекурсивно, берутся файлы с расширением
   `.nmon`, `.nmon.gz`, `.nmon.txt`, `.nmon.csv`) и маски (`*.nmon`, `**/*.nmon` — раскрываются самим скриптом,
-  поэтому работают и в Windows).
+  поэтому их можно передавать в кавычках, не полагаясь на shell).
 - Файлы `.gz` читаются напрямую.
 - Если в одном файле несколько запусков nmon подряд (дописанный файл, `cat a.nmon b.nmon`), второй и следующие
   запуски распознаются по повторному `AAA,progname` или повтору `ZZZZ,T0001`; их снимки получают суффикс
@@ -96,7 +94,7 @@ python nmon_analyzer.py health node01.nmon --format json
   `mem`/`report`/`health` даёт сообщение вместо анализа памяти. Некорректные регулярные выражения в опциях,
   неверное время/длительность, окно с концом раньше начала, недоступный путь `--output` завершаются сообщением
   `ERROR: …` без трассировки.
-- Требования: Python 3.12+, без зависимостей; работает на Linux/Windows/macOS. 30 файлов по 0.5–1.5 MB
+- Требования: Python 3.12+, без зависимостей; работает на Linux. 30 файлов по 0.5–1.5 MB
   разбираются за 1–2 секунды.
 
 ---
@@ -126,7 +124,7 @@ python nmon_analyzer.py health node01.nmon --format json
 
 ## 4. Справочник команд
 
-Синтаксис: `python nmon_analyzer.py <команда> [опции] <paths...>`. Каждая команда, кроме `cluster` и
+Синтаксис: `python3 nmon_analyzer.py <команда> [опции] <paths...>`. Каждая команда, кроме `cluster` и
 `questions`, выводит отдельный отчёт на каждый хост.
 
 ### `questions` — индекс вопросов

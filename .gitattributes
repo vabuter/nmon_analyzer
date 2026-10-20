@@ -1,0 +1,5 @@
+# Всегда LF в репозитории и в рабочем каталоге
+* text=auto eol=lf
+
+*.py  text eol=lf diff=python
+*.md  text eol=lf

@@ -12,7 +12,7 @@ nmon, снятым с узлов кластера Apache Ignite 2.17–2.19. О�
 
 Запуск:  python3 nmon_analyzer.py <команда> [опции] <файлы|каталоги|маски>
 Справка: python3 nmon_analyzer.py --help ; python3 nmon_analyzer.py <команда> --help
-Полное описание команд и интерпретации — в NMON_ANALYZER.md.
+Полное описание команд и интерпретации — в NMON_ANALYZER.md (кратко — NMON_ANALYZER_LITE.md).
 """
 from __future__ import annotations
 
@@ -9964,7 +9964,7 @@ def build_parser():
                "  python3 nmon_analyzer.py at --time 03:52 --host node07 *.nmon\n"
                "  python3 nmon_analyzer.py timeline node01.nmon --metrics cpu.busy disk.write --step 5m --agg max\n"
                "  python3 nmon_analyzer.py disk --dev nvme0n1 --from 03:30 --to 04:10 node01.nmon --format json\n"
-               "Пути ставьте до списковых опций --metrics/--columns. Полное описание — NMON_ANALYZER.md.\n")
+               "Пути ставьте до списковых опций --metrics/--columns. Полное описание — NMON_ANALYZER.md, краткое — NMON_ANALYZER_LITE.md.\n")
     p.add_argument("--version", action="version", version=f"nmon_analyzer {VERSION}")
     sub = p.add_subparsers(dest="command", metavar="команда")
     sub.required = True
